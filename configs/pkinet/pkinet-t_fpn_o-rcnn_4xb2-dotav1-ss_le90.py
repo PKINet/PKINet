@@ -7,7 +7,7 @@ project_dir = '{{fileBasenameNoExtension}}'  # TODO change
 work_dir = f'./work_dirs/{project_dir}'
 
 num_classes = 15
-bs = 2  # batch_size
+bs = 4  # batch_size
 num_workers = bs * 4
 base_lr = 0.0002
 
