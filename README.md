@@ -67,3 +67,14 @@ We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb), and other tutorials f
 ## License
 
 This project is released under the [Apache 2.0 license](LICENSE).
+
+
+## Citation
+```
+@inproceedings{cai2024pkinet,
+  title={Poly Kernel Inception Network for Remote Sensing Detection},
+  author={Cai, Xinhao and Lai, Qiuxia and Wang, Yuwei and Wang, Wenguan and Sun, Zeren and Yao, Yazhou},
+  booktitle={CVPR},
+  year={2024}
+}
+```
