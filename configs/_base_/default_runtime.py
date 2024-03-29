@@ -22,5 +22,3 @@ custom_hooks = [
     dict(type='CheckInvalidLossHook', interval=50, priority='VERY_LOW'),
     # dict(type='NumClassCheckHook'),
 ]
-
-checkpoint_config = dict(interval=1, max_keep_ckpts=3)
