@@ -48,19 +48,8 @@ This repository contains the implementations of **PKINet** (CVPR2024) and **PKIN
 
 | Model | Detector | mAP | Angle | Config | Dev-Config | Weights |
 |:--|:--|:--:|:--:|:--|:--|:--|
-| PKINet-v2-T | Oriented R-CNN | 79.36 | le90 | [config](configs/pkinet-v2/pkinet-v2-t_fpn_o-rcnn_3x_dotav1-ss_le90.py) | - | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQABDi6m2KwFSKmu9H2Nvye0ASdS5RcIhcEIYyelTtS6au8?e=6cvw5Z) |
-| PKINet-v2-S | Oriented R-CNN | 80.46 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_fpn_o-rcnn_3x_dotav1-ss_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_fpn_o-rcnn_3x_dotav1-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQALZ6rAL-D1TK4Iv9PUidUYAe2rIXUF5gvBXHSRqgwiCvc?e=cI9ev6) |
-| PKINet-v2-S | Rotated Faster R-CNN | 79.02 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_fpn_r-faster-rcnn_3x_dotav1-ss_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_fpn_r-faster-rcnn_3x_dotav1-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQAZHmlm-WbDTayB-alZJfTbAdCW3a3RLuN33XUjxBHp_sE?e=sKOPjP) |
-| PKINet-v2-S | Rotated FCOS | 77.13 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_fpn_r-fcos_3x_dotav1-ss_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_fpn_r-fcos_3x_dotav1-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQCgkOprxPMdSJnj_vIrsEVcAaFWmk_Zc7bJHuXTsI1uMCU?e=0466Ja) |
-| PKINet-v2-S | R3Det | 77.64 | oc | [config](configs/pkinet-v2/pkinet-v2-s_fpn_r3det_3x_dotav1-ss_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_fpn_r3det_3x_dotav1-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQBogttwRQZHRYH9OF9w6D7NAQQtPbkN0n84AbHoe9gW60g?e=CZphD6) |
-| PKINet-v2-S | RoI Transformer | 79.87 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_fpn_roitrans_3x_dotav1-ss_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_fpn_roitrans_3x_dotav1-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQC7Z_VowxeQSLZ_Y217l6ulAfyOAws0tJ3EIexwvMQrV5I?e=jl5Krg) |
-| PKINet-v2-S | S2ANet | 79.68 | le135 | [config](configs/pkinet-v2/pkinet-v2-s_fpn_s2a_3x_dotav1-ss_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_fpn_s2a_3x_dotav1-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQDf1C0nqCFzSav5wJG0D0sKAT7WyySyoeDVsBW7qyYHYRg?e=xCaqxB) |
+| PKINet-v2-S | Oriented R-CNN | 80.46 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_fpn_o-rcnn_30e_dotav1-ss_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_fpn_o-rcnn_30e_dotav1-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQALZ6rAL-D1TK4Iv9PUidUYAe2rIXUF5gvBXHSRqgwiCvc?e=cI9ev6) |
 
-#### DOTA-v1.5
-
-| Model | Detector | mAP | Angle | Config | Weights |
-|:--|:--|:--:|:--:|:--|:--|
-| PKINet-v2-S | Oriented R-CNN | 73.57 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_fpn_o-rcnn_3x_dotav15-ss_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQA-LWDjB-HXSYsWuaF7sPvGAZuWH5qpATstRmNaEhvIZqU?e=JHJimJ) |
 
 ---
 
