@@ -48,7 +48,7 @@ This repository contains the implementations of **PKINet** (CVPR2024) and **PKIN
 
 | Model | Detector | mAP | Angle | Config | Dev-Config | Weights |
 |:--|:--|:--:|:--:|:--|:--|:--|
-| PKINet-v2-S-Sqrt5 | Oriented R-CNN | 80.72 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_branch-sqrt5_fpn_o-rcnn_3x_split-ss-dota_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_branch-sqrt5_fpn_o-rcnn_3x_split-ss-dota_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQAQdLk0RR8NSYSk2RUk1Z1jATbIG_L7ttYf-dfQ0RchMTE?e=7nhHgr) |
+| PKINet-v2-S-Sqrt5 | Oriented R-CNN | 80.75 | le90 | [config](configs/pkinet-v2/pkinet-v2-s_branch-sqrt5_fpn_o-rcnn_3x_split-ss-dota_le90.py) | [develop](configs/pkinet-v2/pkinet-v2-s_branch-sqrt5_fpn_o-rcnn_3x_split-ss-dota_le90_develop.py) | [model](https://1drv.ms/u/c/9ce9a57f1a400a74/IQAQdLk0RR8NSYSk2RUk1Z1jATbIG_L7ttYf-dfQ0RchMTE?e=7nhHgr) |
 
 The following models are the standard PKINet-v2 model zoo results.
 
