@@ -59,11 +59,13 @@ class PKSModule(nn.Module):
     4. Sparse: 3x3, d=3 -> RF 7  [New: Sub-Medium]
     5. Dense:  3x3, d=1 -> RF 3  [Micro Texture]
     """
-    def __init__(self, dim, deploy=False, auto_reparam=False, norm_cfg=dict(type='BN')):
+    def __init__(self, dim, deploy=False, auto_reparam=False,
+                 norm_cfg=dict(type='BN'), branch_scale=1.0):
         super().__init__()
         self.deploy = deploy
         self.auto_reparam = auto_reparam
         self.dim = dim
+        self.branch_scale = branch_scale
         
         # Max Kernel Size for Fusion (Determined by RF of Branch 1 & 2)
         # Branch 1: 19x19
@@ -144,6 +146,7 @@ class PKSModule(nn.Module):
         attn = attn + self.branch4_sparse(x_feat)
         # 5. Dense 3x3
         attn = attn + self.branch5_dense(x_feat)
+        attn = attn * self.branch_scale
         
         # Tail Proj
         attn = self.conv1(attn)
@@ -206,6 +209,8 @@ class PKSModule(nn.Module):
 
         # 5. Fuse Branch 5 (3x3, d=1)
         fused_bias += fuse_dilated_branch(self.branch5_dense, k_size=3, dilation=1)
+        fused_kernel *= self.branch_scale
+        fused_bias *= self.branch_scale
 
         # Finalize
         self.fused_parallel_conv = nn.Conv2d(self.dim, self.dim, self.max_k, 
@@ -223,12 +228,15 @@ class PKSModule(nn.Module):
 # =============================================================================
 
 class PKSBlock(nn.Module):
-    def __init__(self, dim, deploy=False, auto_reparam=False, norm_cfg=dict(type='BN')):
+    def __init__(self, dim, deploy=False, auto_reparam=False,
+                 norm_cfg=dict(type='BN'), branch_scale=1.0):
         super().__init__()
         self.proj_1 = nn.Conv2d(dim, dim, 1)
         self.activation = nn.GELU()
         # Uses PKS module (fixed branch design from PKINet-v2)
-        self.spatial_gating_unit = PKSModule(dim, deploy=deploy, auto_reparam=auto_reparam, norm_cfg=norm_cfg)
+        self.spatial_gating_unit = PKSModule(
+            dim, deploy=deploy, auto_reparam=auto_reparam,
+            norm_cfg=norm_cfg, branch_scale=branch_scale)
         self.proj_2 = nn.Conv2d(dim, dim, 1)
 
     def forward(self, x):
@@ -288,13 +296,17 @@ class OverlapPatchEmbed(nn.Module):
 
 class PKINetV2Block(nn.Module):
     def __init__(self, dim, mlp_ratio=4., 
-                 drop=0., drop_path=0., act_layer=nn.GELU, auto_reparam=False, norm_cfg=dict(type='BN')):
+                 drop=0., drop_path=0., act_layer=nn.GELU,
+                 auto_reparam=False, norm_cfg=dict(type='BN'),
+                 branch_scale=1.0):
         super().__init__()
         self.norm1 = build_norm_layer(norm_cfg, dim)[1]
         self.norm2 = build_norm_layer(norm_cfg, dim)[1]
         
         # Use PKS Block
-        self.attn = PKSBlock(dim, auto_reparam=auto_reparam, norm_cfg=norm_cfg)
+        self.attn = PKSBlock(
+            dim, auto_reparam=auto_reparam, norm_cfg=norm_cfg,
+            branch_scale=branch_scale)
         
         self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
         mlp_hidden_dim = int(dim * mlp_ratio)
@@ -328,7 +340,8 @@ class PKINetV2(BaseModule):
                  depths=[3, 4, 6, 3], num_stages=4, 
                  pretrained=None, init_cfg=None,
                  deploy=False, auto_reparam=False,
-                 norm_cfg=dict(type='BN', requires_grad=True)):
+                 norm_cfg=dict(type='BN', requires_grad=True),
+                 branch_scale=1.0):
         super().__init__(init_cfg=init_cfg)
         
         assert not (init_cfg and pretrained), 'init_cfg and pretrained cannot be set at the same time'
@@ -357,7 +370,8 @@ class PKINetV2(BaseModule):
                 drop=drop_rate, 
                 drop_path=dpr[cur + j],
                 auto_reparam=auto_reparam,
-                norm_cfg=norm_cfg)
+                norm_cfg=norm_cfg,
+                branch_scale=branch_scale)
                 for j in range(depths[i])])
             
             norm = norm_layer(embed_dims[i])
@@ -420,6 +434,21 @@ class PKINetV2_S(PKINetV2):
             embed_dims=[64, 128, 320, 512], depths=[2, 2, 4, 2],
             mlp_ratios=[8, 8, 4, 4],
             drop_rate=0.1, drop_path_rate=0.15, norm_cfg=dict(type='BN', requires_grad=True)
+        )
+        cfg.update(kwargs)
+        super().__init__(**cfg)
+
+@ROTATED_BACKBONES.register_module()
+class PKINetV2_S_BranchSqrt5(PKINetV2):
+    """PKINetV2-S with five PKS branches scaled by 1/sqrt(5)."""
+
+    def __init__(self, **kwargs):
+        cfg = dict(
+            embed_dims=[64, 128, 320, 512], depths=[2, 2, 4, 2],
+            mlp_ratios=[8, 8, 4, 4],
+            drop_rate=0.1, drop_path_rate=0.15,
+            norm_cfg=dict(type='BN', requires_grad=True),
+            branch_scale=1.0 / math.sqrt(5.0)
         )
         cfg.update(kwargs)
         super().__init__(**cfg)
