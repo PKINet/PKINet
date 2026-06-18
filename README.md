@@ -2,7 +2,7 @@
 
 ## Introduction 👋
 
-This repository contains the implementations of **PKINet** (CVPR2024) and **PKINet-v2** for remote sensing object detection.
+This repository contains the implementations of **PKINet** (CVPR2024) and **PKINet-v2** (ECCV2026) for remote sensing object detection.
 
 - **PKINet** is the original poly-kernel backbone for remote sensing detection.
 - **PKINet-v2** further improves both **detection accuracy** and **inference efficiency** over PKINet.
@@ -30,7 +30,7 @@ This repository contains the implementations of **PKINet** (CVPR2024) and **PKIN
 ### PKINet (CVPR 2024)
 - **Poly Kernel Inception Network for Remote Sensing Detection**: [arXiv](https://arxiv.org/abs/2403.06258)
 
-### PKINet-v2
+### PKINet-v2 (ECCV 2026)
 - **PKINet-v2: Towards Powerful and Efficient Poly-Kernel Remote Sensing Object Detection**: [arXiv](https://arxiv.org/abs/2603.16341)
 
 ---
